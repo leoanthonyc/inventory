@@ -9,10 +9,12 @@ This app is created using the **PERN** Stack (**P**ostgreSQL, **E**xpress, **R**
 ### Backend
 
 - Install postgresql
-- Execute sql commands from `server/database.sql` inside postgresql console
+- Execute sql commands inside `server/database.sql`
 - Use correct values inside `server/.env`,
-  1. `DB_HOST`
-  2. `DB_PORT`
-  3. `DB_NAME`
-  4. `DB_USER`
-  5. `DB_PASSWORD`
+  - `DB_HOST`
+  - `DB_PORT`
+  - `DB_NAME`
+  - `DB_USER`
+  - `DB_PASSWORD`
+- Start the server using:
+  > `node server/index.js`
