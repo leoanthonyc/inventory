@@ -10,11 +10,14 @@ This app is created using the **PERN** Stack (**P**ostgreSQL, **E**xpress, **R**
 
 - Install postgresql
 - Execute sql commands inside `server/database.sql`
-- Use correct values inside `server/.env`,
-  - `DB_HOST`
-  - `DB_PORT`
-  - `DB_NAME`
-  - `DB_USER`
-  - `DB_PASSWORD`
-- Start the server using:
-  > `node server/index.js`
+- Create `server/.env` file with the following keys:
+  - `DB_HOST=localhost`
+  - `DB_PORT=5432`
+  - `DB_NAME=inventory`
+  - `DB_USER=postgres`
+  - `DB_PASSWORD=postgres`
+- Start backend service:
+  ```
+    cd server
+    node index.js
+  ```
