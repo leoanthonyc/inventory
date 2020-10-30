@@ -2,7 +2,7 @@
 
 Keep track of your personal things. You can add, edit and delete items in you inventory.
 
-This app is created using the **PERN** Stack (**P**ostgreSQL, **E**xpress, **R**eact, and **N**ode.js)
+This app was created using the **PERN** Stack (**P**ostgreSQL, **E**xpress, **R**eact, and **N**ode.js)
 
 ## Local setup
 
@@ -21,3 +21,14 @@ This app is created using the **PERN** Stack (**P**ostgreSQL, **E**xpress, **R**
     cd server
     node index.js
   ```
+
+### Client
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+- Start frontend service:
+  ```
+    cd client
+    npm start
+  ```
+- Open [http://localhost:3000](http://localhost:3000) in the browser.
