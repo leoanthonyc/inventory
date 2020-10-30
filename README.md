@@ -24,7 +24,7 @@ This app was created using the **PERN** Stack (**P**ostgreSQL, **E**xpress, **R*
 
 ### Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The client was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 - Start frontend service:
   ```
