@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Item from './Item';
 
 const Items = () => {
   const [items, setItems] = useState([]);
@@ -17,7 +18,7 @@ const Items = () => {
       <ul>
         {items.map((item) => (
           <li key={item.id}>
-            {item.name}
+            <Item item={item} />
           </li>
         ))}
       </ul>

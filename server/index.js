@@ -23,7 +23,7 @@ app.post('/items', async(req, res) => {
 app.get('/items', async(req, res) => {
   try {
     // TODO: Add check
-    const items = await pool.query("SELECT * from items");
+    const items = await pool.query("SELECT * FROM items ORDER BY id");
     res.json(items.rows);
   } catch(err) {
     console.error(err.message);
