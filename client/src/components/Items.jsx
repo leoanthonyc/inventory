@@ -10,6 +10,12 @@ const Items = () => {
     setItems(data);
   };
 
+  const handleRemoveItem = (item) => {
+    setItems(
+      (prevItems) => prevItems.filter((i) => i.id !== item.id),
+    );
+  };
+
   useEffect(() => fetchItems(), []);
 
   return (
@@ -18,7 +24,7 @@ const Items = () => {
       <ul>
         {items.map((item) => (
           <li key={item.id}>
-            <Item item={item} />
+            <Item item={item} handleRemoveItem={handleRemoveItem} />
           </li>
         ))}
       </ul>

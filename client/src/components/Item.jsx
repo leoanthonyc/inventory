@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Item = ({ item }) => {
+const Item = ({ item, handleRemoveItem }) => {
   const [name, setName] = useState(item.name);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -15,6 +15,17 @@ const Item = ({ item }) => {
     setIsEditing(false);
   };
 
+  const handleDeleteItem = async () => {
+    if (window.confirm('Are you sure?')) {
+      const response = await fetch(`http://localhost:5000/items/${item.id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        handleRemoveItem(item);
+      }
+    }
+  };
+
   return (
     <>
       <input
@@ -24,29 +35,49 @@ const Item = ({ item }) => {
       />
       {isEditing ? (
         (
+          <>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                handleEditItem();
+              }}
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsEditing(false);
+              }}
+            >
+              Cancel
+            </button>
+          </>
+        )
+      ) : (
+        <>
           <button
             type="button"
             onClick={(e) => {
               e.preventDefault();
-              handleEditItem();
+              setIsEditing(true);
             }}
           >
-            Save
+            Edit
           </button>
-        )
-      ) : (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            setIsEditing(true);
-          }}
-        >
-          Edit
-        </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDeleteItem();
+            }}
+          >
+            Delete
+          </button>
+        </>
       )}
-
-      <button type="button">Delete</button>
     </>
   );
 };
@@ -56,6 +87,7 @@ Item.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
+  handleRemoveItem: PropTypes.func.isRequired,
 };
 
 export default Item;

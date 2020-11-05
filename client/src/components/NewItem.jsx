@@ -5,6 +5,9 @@ const NewItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (name.length === 0) {
+      return;
+    }
     const body = { name };
     await fetch('http://localhost:5000/items', {
       method: 'POST',
@@ -19,9 +22,19 @@ const NewItem = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
           Name
-          <input name="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            name="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </label>
-        <button type="submit">Submit</button>
+        <button
+          disabled={name.length < 1}
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
     </>
   );
