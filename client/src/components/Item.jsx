@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 
 const Item = ({ item, handleRemoveItem }) => {
   const [name, setName] = useState(item.name);
+  const [dateAdded, setDateAdded] = useState(
+    item.added_at
+      ? new Date(item.added_at).toISOString().split('T')[0]
+      : '',
+  );
   const [isEditing, setIsEditing] = useState(false);
-
   const handleEditItem = async () => {
-    const body = { name };
+    const body = { name, dateAdded };
     await fetch(`http://localhost:5000/items/${item.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -32,6 +36,12 @@ const Item = ({ item, handleRemoveItem }) => {
         disabled={!isEditing}
         value={name}
         onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        disabled={!isEditing}
+        type="date"
+        value={dateAdded}
+        onChange={(e) => setDateAdded(e.target.value)}
       />
       {isEditing ? (
         (
@@ -86,6 +96,7 @@ Item.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    added_at: PropTypes.string,
   }).isRequired,
   handleRemoveItem: PropTypes.func.isRequired,
 };

@@ -4,7 +4,6 @@ import NewItem from './components/NewItem';
 
 const App = () => (
   <>
-    Hi there!
     <NewItem />
     <Items />
   </>

@@ -23,7 +23,7 @@ app.post('/items', async(req, res) => {
 app.get('/items', async(req, res) => {
   try {
     // TODO: Add check
-    const items = await pool.query("SELECT * FROM items ORDER BY id");
+    const items = await pool.query("SELECT * FROM items ORDER BY added_at desc");
     res.json(items.rows);
   } catch(err) {
     console.error(err.message);
@@ -47,10 +47,11 @@ app.get('/items/:id', async(req, res) => {
 app.put('/items/:id', async(req, res) => {
   try {
    const { id } = req.params;
-   const { name } = req.body;
+   const { name, dateAdded } = req.body;
+   const addedAt = dateAdded ? new Date(dateAdded).toISOString() : null;
    const todo = await pool.query(
-    "UPDATE items SET name=$1 WHERE id=$2 RETURNING *",
-    [name, id]
+    "UPDATE items SET name=$1, added_at=$2 WHERE id=$3 RETURNING *",
+    [name, addedAt, id]
    );
    res.json(todo.rows[0])
   } catch(err) {
