@@ -22,7 +22,7 @@ const Items = () => {
   const fetchYears = async () => {
     const response = await fetch('http://localhost:5000/years');
     const data = await response.json();
-    setYears(data.map((datePart) => datePart.date_part));
+    setYears(data.map((datePart) => datePart.date_part || 'notdated'));
   };
 
   const handleRemoveItem = (item) => {
@@ -61,9 +61,9 @@ const Items = () => {
             <button
               disabled={filter === year}
               type="button"
-              onClick={() => handleChangeYear(year || 'notdated')}
+              onClick={() => handleChangeYear(year)}
             >
-              {year || 'Not dated'}
+              {year === 'notdated' ? 'Not dated' : year}
             </button>
           </span>
         ))}
