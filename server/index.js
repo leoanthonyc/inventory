@@ -48,13 +48,19 @@ app.get('/items/year/:year', async(req, res) => {
   try {
     // TODO: Add check
     const { year } = req.params;
-    const date = new Date(year).toISOString().split('T')[0]
-    const items = await pool.query(`
-      SELECT * FROM items
-      WHERE date_part('year', added_at) = date_part('year', TO_DATE('${date}', 'YYYY-MM-DD'))
-      ORDER BY added_at desc;
-    `);
-    res.json(items.rows);
+    if (year === 'notdated') {
+      const items = await pool.query("SELECT * FROM items WHERE added_at IS NULL;");
+      res.json(items.rows);
+    } else {
+      const date = new Date(year).toISOString().split('T')[0]
+      const items = await pool.query(`
+        SELECT * FROM items
+        WHERE date_part('year', added_at) = date_part('year', TO_DATE('${date}', 'YYYY-MM-DD'))
+        ORDER BY added_at desc;
+      `);
+      res.json(items.rows);
+    }
+
   } catch(err) {
     console.error(err.message);
   }

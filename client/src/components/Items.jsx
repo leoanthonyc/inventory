@@ -61,9 +61,9 @@ const Items = () => {
             <button
               disabled={filter === year}
               type="button"
-              onClick={() => handleChangeYear(year)}
+              onClick={() => handleChangeYear(year || 'notdated')}
             >
-              {year}
+              {year || 'Not dated'}
             </button>
           </span>
         ))}
