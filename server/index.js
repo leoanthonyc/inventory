@@ -9,10 +9,11 @@ app.use(express.json());
 app.post('/items', async(req, res) => {
   try {
     // TODO: Add check
-    const { name } = req.body;
+    const { name, dateAdded } = req.body;
+    const addedAt = dateAdded ? new Date(dateAdded).toISOString() : null;
     const newItem = await pool.query(
-      "INSERT INTO items(name) VALUES($1) RETURNING *",
-      [name]
+      "INSERT INTO items(name, added_at) VALUES($1, $2) RETURNING *",
+      [name, addedAt]
     );
     res.json(newItem.rows[0]);
   } catch(err) {

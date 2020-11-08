@@ -4,6 +4,7 @@ import NewItem from './components/NewItem';
 
 const App = () => (
   <>
+    <h1>Inventory</h1>
     <NewItem />
     <Items />
   </>

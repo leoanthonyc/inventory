@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Item from './Item';
+import Item from '../Item';
 import './Items.css';
 
 const Items = () => {
@@ -44,9 +44,8 @@ const Items = () => {
   useEffect(() => fetchYears(), []);
 
   return (
-    <>
-      <h1> Items </h1>
-      <div>
+    <div className="items">
+      <div className="filters">
         <span>
           <button
             type="button"
@@ -75,7 +74,7 @@ const Items = () => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 

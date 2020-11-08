@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import './NewItem.css';
 
 const NewItem = () => {
   const [name, setName] = useState('');
+  const [dateAdded, setDateAdded] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name.length === 0) {
       return;
     }
-    const body = { name };
+    const body = { name, dateAdded };
     await fetch('http://localhost:5000/items', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -17,8 +19,7 @@ const NewItem = () => {
   };
 
   return (
-    <>
-      <h1> New Item </h1>
+    <div className="new-item">
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
           Name
@@ -29,14 +30,23 @@ const NewItem = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
+        <label htmlFor="dateadded">
+          Date added
+          <input
+            name="dateadded"
+            type="date"
+            value={dateAdded}
+            onChange={(e) => setDateAdded(e.target.value)}
+          />
+        </label>
         <button
           disabled={name.length < 1}
           type="submit"
         >
-          Submit
+          Save
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

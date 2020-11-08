@@ -1,0 +1,11 @@
+.items {
+  padding: 1rem;
+}
+
+ul {
+  list-style: none;
+}
+
+.filters span {
+  margin-right: 0.2rem;
+}
