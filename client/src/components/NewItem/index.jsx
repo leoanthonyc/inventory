@@ -41,6 +41,7 @@ const NewItem = () => {
         </label>
         <button
           disabled={name.length < 1}
+          className="save"
           type="submit"
         >
           Save

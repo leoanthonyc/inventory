@@ -2,15 +2,12 @@
   padding: 1rem;
 }
 
-.new-item label {
-  margin: 0 0.2rem;
-}
-
 .new-item input {
-  margin: 0 0.2rem;
+  margin-bottom:  0.5rem;
+  display: block;
 }
 
-.new-item button {
-  margin-left: 0.5rem;
+.new-item .save {
+  margin-top: 0.5rem;
 }
 
