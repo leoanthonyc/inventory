@@ -7,6 +7,16 @@ ul {
   padding: 0;
 }
 
+ul input {
+  margin-right: 0.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ul button {
+  margin-right: 0.2rem;
+}
+
 .filters span {
   margin-right: 0.2rem;
 }

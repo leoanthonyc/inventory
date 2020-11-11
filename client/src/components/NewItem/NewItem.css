@@ -3,11 +3,10 @@
 }
 
 .new-item input {
-  margin-bottom:  0.5rem;
-  display: block;
+  margin-left:  0.2rem;
 }
 
 .new-item .save {
-  margin-top: 0.5rem;
+  margin-left: 0.2rem;
 }
 

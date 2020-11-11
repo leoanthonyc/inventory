@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import './Item.css';
 
 const Item = ({ item, handleRemoveItem }) => {
   const [name, setName] = useState(item.name);
@@ -31,7 +32,7 @@ const Item = ({ item, handleRemoveItem }) => {
   };
 
   return (
-    <>
+    <div className="item">
       <input
         disabled={!isEditing}
         value={name}
@@ -53,7 +54,7 @@ const Item = ({ item, handleRemoveItem }) => {
                 handleEditItem();
               }}
             >
-              Save
+              save
             </button>
             <button
               type="button"
@@ -62,7 +63,7 @@ const Item = ({ item, handleRemoveItem }) => {
                 setIsEditing(false);
               }}
             >
-              Cancel
+              cancel
             </button>
           </>
         )
@@ -75,7 +76,7 @@ const Item = ({ item, handleRemoveItem }) => {
               setIsEditing(true);
             }}
           >
-            Edit
+            edit
           </button>
           <button
             type="button"
@@ -84,11 +85,11 @@ const Item = ({ item, handleRemoveItem }) => {
               handleDeleteItem();
             }}
           >
-            Delete
+            delete
           </button>
         </>
       )}
-    </>
+    </div>
   );
 };
 

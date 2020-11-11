@@ -22,7 +22,6 @@ const NewItem = () => {
     <div className="new-item">
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
-          Name
           <input
             name="name"
             type="text"
@@ -31,7 +30,6 @@ const NewItem = () => {
           />
         </label>
         <label htmlFor="dateadded">
-          Date added
           <input
             name="dateadded"
             type="date"
@@ -44,7 +42,7 @@ const NewItem = () => {
           className="save"
           type="submit"
         >
-          Save
+          add
         </button>
       </form>
     </div>
