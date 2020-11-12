@@ -27,6 +27,7 @@ const NewItem = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="new item"
           />
         </label>
         <label htmlFor="dateadded">

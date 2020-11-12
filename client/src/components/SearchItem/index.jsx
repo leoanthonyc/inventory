@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SearchItem.css';
 
 const SearchItem = () => {
-  console.log('Hello');
+  const [query, setQuery] = useState('');
 
   return (
     <div className="search-item">
       <input
         name="search"
-        type="text"
-        value=""
+        type="search"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="search here"
       />
-      <button type="submit">search</button>
     </div>
   );
 };
