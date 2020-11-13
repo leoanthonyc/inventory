@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Item from '../Item';
 import './Items.css';
 
-const Items = () => {
+const Items = ({ query }) => {
   const [items, setItems] = useState([]);
   const [years, setYears] = useState([]);
   const [filter, setFilter] = useState('all');
 
   const fetchItems = async () => {
-    const response = await fetch('http://localhost:5000/items');
+    const sql = query.length > 2
+      ? `http://localhost:5000/items/${query}`
+      : 'http://localhost:5000/items';
+    const response = await fetch(sql);
     const data = await response.json();
     setItems(data);
   };
@@ -40,7 +44,7 @@ const Items = () => {
     }
   };
 
-  useEffect(() => fetchItems(), []);
+  useEffect(() => fetchItems(), [query]);
   useEffect(() => fetchYears(), []);
 
   return (
@@ -76,6 +80,10 @@ const Items = () => {
       </ul>
     </div>
   );
+};
+
+Items.propTypes = {
+  query: PropTypes.string.isRequired,
 };
 
 export default Items;

@@ -31,6 +31,19 @@ app.get('/items', async(req, res) => {
   }
 });
 
+app.get('/items/:query', async(req, res) => {
+  try {
+    // TODO: Add check
+    const { query } = req.params
+    const items = await pool.query(
+      `SELECT * FROM items WHERE name ILIKE '%${query}%' ORDER BY added_at desc`
+    );
+    res.json(items.rows);
+  } catch(err) {
+    console.error(err.message);
+  }
+});
+
 app.get('/items/:id', async(req, res) => {
   try {
     // TODO: Add check
