@@ -6,6 +6,10 @@
   margin-right:  0.2rem;
 }
 
+.new-item input[type=text] {
+  width: 12rem;
+}
+
 .new-item .save {
   margin-left: 0.2rem;
 }

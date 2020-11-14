@@ -9,7 +9,7 @@ const Items = ({ query }) => {
   const [filter, setFilter] = useState('all');
 
   const fetchItems = async () => {
-    const sql = query.length > 2
+    const sql = query.length > 0
       ? `http://localhost:5000/items/${query}`
       : 'http://localhost:5000/items';
     const response = await fetch(sql);
@@ -46,31 +46,36 @@ const Items = ({ query }) => {
 
   useEffect(() => fetchItems(), [query]);
   useEffect(() => fetchYears(), []);
+  useEffect(() => {
+    if (query.length > 0) setFilter('all');
+  }, [query]);
 
   return (
     <div className="items">
-      <div className="filters">
-        <span>
-          <button
-            type="button"
-            onClick={() => handleChangeYear('all')}
-            disabled={filter === 'all'}
-          >
-            All
-          </button>
-        </span>
-        {years.map((year) => (
-          <span key={year}>
+      {query.length === 0 && (
+        <div className="filters">
+          <span>
             <button
-              disabled={filter === year}
               type="button"
-              onClick={() => handleChangeYear(year)}
+              onClick={() => handleChangeYear('all')}
+              disabled={filter === 'all'}
             >
-              {year === 'notdated' ? 'Not dated' : year}
+              All
             </button>
           </span>
-        ))}
-      </div>
+          {years.map((year) => (
+            <span key={year}>
+              <button
+                disabled={filter === year}
+                type="button"
+                onClick={() => handleChangeYear(year)}
+              >
+                {year === 'notdated' ? 'Not dated' : year}
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
       <ul>
         {items.map((item) => (
           <li key={item.id}>

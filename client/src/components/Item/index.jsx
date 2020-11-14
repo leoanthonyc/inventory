@@ -35,8 +35,12 @@ const Item = ({ item, handleRemoveItem }) => {
     <div className="item">
       <input
         disabled={!isEditing}
+        type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') handleEditItem();
+        }}
       />
       <input
         disabled={!isEditing}

@@ -9,6 +9,10 @@ ul input {
   text-overflow: ellipsis;
 }
 
+ul input[type=text] {
+  width: 12rem;
+}
+
 ul button {
   margin-right: 0.2rem;
 }
