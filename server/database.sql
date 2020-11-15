@@ -23,3 +23,7 @@ CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON items
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
+
+-- Add tags column
+ALTER TABLE items
+ADD COLUMN tags TEXT;
