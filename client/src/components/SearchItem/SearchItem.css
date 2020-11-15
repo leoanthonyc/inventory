@@ -1,0 +1,8 @@
+.search-item {
+  padding: 0.75rem 0;
+}
+
+.search-item input[type=search] {
+  width: 10rem;
+}
+

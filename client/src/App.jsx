@@ -10,8 +10,8 @@ const App = () => {
   return (
     <div className="inventory">
       <h1>Inventory</h1>
-      <SearchItem query={query} setQuery={setQuery} />
       <NewItem />
+      <SearchItem query={query} setQuery={setQuery} />
       <Items query={query} />
     </div>
   );
