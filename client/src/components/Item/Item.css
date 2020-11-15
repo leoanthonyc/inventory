@@ -3,5 +3,39 @@
 }
 
 .item {
-  margin-bottom: 0.2rem;
+  margin-bottom: 10px;
+}
+
+.item .react-tagsinput input {
+  width: 2rem;
+}
+
+.item .react-tagsinput {
+  display: block;
+}
+
+.item .react-tagsinput-tag {
+  margin: 0 2px;
+}
+
+.item .react-tagsinput-remove {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.item .react-tagsinput-tag a::before {
+  margin-left: 2px;
+  content: " ×";
+  font-size: smaller;
+}
+
+.item .react-tagsinput-tag {
+  background-color:whitesmoke;
+  border-radius: 2px;
+  color: grey;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 2px;
 }

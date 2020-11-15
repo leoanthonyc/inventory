@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import TagsInput from 'react-tagsinput';
 import './Item.css';
 
 const Item = ({ item, handleRemoveItem }) => {
@@ -10,8 +11,9 @@ const Item = ({ item, handleRemoveItem }) => {
       : '',
   );
   const [isEditing, setIsEditing] = useState(false);
+  const [tags, setTags] = useState(item?.tags.length > 0 ? item.tags?.split(',') : []);
   const handleEditItem = async () => {
-    const body = { name, dateAdded };
+    const body = { name, dateAdded, tags };
     await fetch(`http://localhost:5000/items/${item.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -30,6 +32,8 @@ const Item = ({ item, handleRemoveItem }) => {
       }
     }
   };
+
+  useEffect(() => handleEditItem(), [tags]);
 
   return (
     <div className="item">
@@ -93,6 +97,12 @@ const Item = ({ item, handleRemoveItem }) => {
           </button>
         </>
       )}
+      <TagsInput
+        className="react-tagsinput"
+        value={tags}
+        onChange={(inputTags) => setTags(inputTags)}
+        inputProps={{ placeholder: 'tags' }}
+      />
     </div>
   );
 };
@@ -101,6 +111,7 @@ Item.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    tags: PropTypes.string,
     added_at: PropTypes.string,
   }).isRequired,
   handleRemoveItem: PropTypes.func.isRequired,
