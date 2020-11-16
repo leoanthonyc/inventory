@@ -92,11 +92,12 @@ app.get('/years', async(req, res) => {
 app.put('/items/:id', async(req, res) => {
   try {
    const { id } = req.params;
-   const { name, dateAdded } = req.body;
+   const { name, dateAdded, tags } = req.body;
    const addedAt = dateAdded ? new Date(dateAdded).toISOString() : null;
+   const itemTags = tags ? tags.join(",") : null;
    const todo = await pool.query(
-    "UPDATE items SET name=$1, added_at=$2 WHERE id=$3 RETURNING *",
-    [name, addedAt, id]
+    "UPDATE items SET name=$1, added_at=$2, tags=$3 WHERE id=$4 RETURNING *",
+    [name, addedAt, itemTags, id]
    );
    res.json(todo.rows[0])
   } catch(err) {
