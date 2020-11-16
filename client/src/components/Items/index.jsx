@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { compact, uniq } from 'underscore';
 import Item from '../Item';
 import './Items.css';
 
 const Items = ({ query }) => {
   const [items, setItems] = useState([]);
   const [years, setYears] = useState([]);
+  const [tags, setTags] = useState([]);
   const [filter, setFilter] = useState('all');
 
   const fetchItems = async () => {
@@ -23,10 +25,23 @@ const Items = ({ query }) => {
     setItems(data);
   };
 
+  const fetchItemsByTag = async (tag) => {
+    const response = await fetch(`http://localhost:5000/items/tag/${tag}`);
+    const data = await response.json();
+    setItems(data);
+  };
+
   const fetchYears = async () => {
     const response = await fetch('http://localhost:5000/years');
     const data = await response.json();
     setYears(data.map((datePart) => datePart.date_part || 'notdated'));
+  };
+
+  const fetchTags = async () => {
+    const response = await fetch('http://localhost:5000/tags');
+    const data = await response.json();
+    const uniqueTags = compact(uniq(data.map((d) => d.tags)));
+    setTags(uniqueTags);
   };
 
   const handleRemoveItem = (item) => {
@@ -44,8 +59,14 @@ const Items = ({ query }) => {
     }
   };
 
+  const handleChangeTag = (tag) => {
+    setFilter(tag);
+    fetchItemsByTag(tag);
+  };
+
   useEffect(() => fetchItems(), [query]);
   useEffect(() => fetchYears(), []);
+  useEffect(() => fetchTags(), []);
   useEffect(() => {
     if (query.length > 0) setFilter('all');
   }, [query]);
@@ -71,6 +92,17 @@ const Items = ({ query }) => {
                 onClick={() => handleChangeYear(year)}
               >
                 {year === 'notdated' ? 'Not dated' : year}
+              </button>
+            </span>
+          ))}
+          {tags.map((tag) => (
+            <span key={tag}>
+              <button
+                disabled={filter === tag}
+                type="button"
+                onClick={() => handleChangeTag(tag)}
+              >
+                {tag}
               </button>
             </span>
           ))}

@@ -11,7 +11,7 @@ const Item = ({ item, handleRemoveItem }) => {
       : '',
   );
   const [isEditing, setIsEditing] = useState(false);
-  const [tags, setTags] = useState(item?.tags.length > 0 ? item.tags?.split(',') : []);
+  const [tags, setTags] = useState(item?.tags?.length > 0 ? item.tags?.split(',') : []);
   const handleEditItem = async () => {
     const body = { name, dateAdded, tags };
     await fetch(`http://localhost:5000/items/${item.id}`, {
