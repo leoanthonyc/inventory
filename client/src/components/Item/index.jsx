@@ -37,24 +37,22 @@ const Item = ({ item, handleRemoveItem }) => {
 
   return (
     <div className="item">
-      <input
-        disabled={!isEditing}
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') handleEditItem();
-        }}
-      />
-      <input
-        disabled={!isEditing}
-        type="date"
-        value={dateAdded}
-        onChange={(e) => setDateAdded(e.target.value)}
-      />
       {isEditing ? (
         (
           <>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleEditItem();
+              }}
+            />
+            <input
+              type="date"
+              value={dateAdded}
+              onChange={(e) => setDateAdded(e.target.value)}
+            />
             <button
               type="button"
               onClick={(e) => {
@@ -77,6 +75,12 @@ const Item = ({ item, handleRemoveItem }) => {
         )
       ) : (
         <>
+          <div className="item-name">
+            {name}
+          </div>
+          <div className="item-date">
+            {dateAdded}
+          </div>
           <button
             type="button"
             onClick={(e) => {
@@ -101,7 +105,7 @@ const Item = ({ item, handleRemoveItem }) => {
         className="react-tagsinput"
         value={tags}
         onChange={(inputTags) => setTags(inputTags)}
-        inputProps={{ placeholder: 'tags' }}
+        inputProps={{ placeholder: '+ tags' }}
       />
     </div>
   );
