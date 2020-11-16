@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { compact, uniq } from 'underscore';
+import { compact, flatten, uniq } from 'underscore';
 import Item from '../Item';
 import './Items.css';
 
@@ -40,7 +40,9 @@ const Items = ({ query }) => {
   const fetchTags = async () => {
     const response = await fetch('http://localhost:5000/tags');
     const data = await response.json();
-    const uniqueTags = compact(uniq(data.map((d) => d.tags)));
+    const uniqueTags = compact(uniq(flatten(data.map((d) => d.tags.split(',')))));
+
+    console.log(uniqueTags);
     setTags(uniqueTags);
   };
 
