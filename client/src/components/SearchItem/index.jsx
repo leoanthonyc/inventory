@@ -4,12 +4,12 @@ import './SearchItem.css';
 
 const SearchItem = ({ query, setQuery }) => (
   <div className="search-item">
+    Search:
     <input
       name="search"
       type="search"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      placeholder="search here"
     />
   </div>
 );

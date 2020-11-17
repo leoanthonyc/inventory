@@ -20,3 +20,7 @@ ul button {
 .filters span {
   margin-right: 0.2rem;
 }
+
+.filters span button {
+  cursor: pointer;
+}

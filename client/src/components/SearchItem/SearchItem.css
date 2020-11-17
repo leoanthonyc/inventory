@@ -1,8 +1,10 @@
 .search-item {
+  margin-top: 1rem;
   padding: 0.75rem 0;
 }
 
 .search-item input[type=search] {
+  margin-left: 5px;
   width: 10rem;
 }
 
