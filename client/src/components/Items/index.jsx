@@ -40,7 +40,7 @@ const Items = ({ query }) => {
   const fetchTags = async () => {
     const response = await fetch('http://localhost:5000/tags');
     const data = await response.json();
-    const uniqueTags = compact(uniq(flatten(data.map((d) => d.tags.split(','))))).sort();
+    const uniqueTags = compact(uniq(flatten(data.map((d) => d.tags?.split(','))))).sort();
     setTags(uniqueTags);
   };
 
