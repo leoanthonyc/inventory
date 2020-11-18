@@ -17,6 +17,15 @@ const Items = ({ query }) => {
     const response = await fetch(sql);
     const data = await response.json();
     setItems(data);
+    const uniqueTags = compact(uniq(flatten(data.map((d) => d.tags?.split(','))))).sort();
+    setTags(uniqueTags);
+    const addedDates = compact(uniq(
+      data.map((d) => {
+        if (d.added_at) return new Date(d.added_at).getFullYear();
+        return null;
+      }),
+    ));
+    setYears(addedDates);
   };
 
   const fetchItemsByYear = async (year) => {
@@ -29,19 +38,6 @@ const Items = ({ query }) => {
     const response = await fetch(`http://localhost:5000/items/tag/${tag}`);
     const data = await response.json();
     setItems(data);
-  };
-
-  const fetchYears = async () => {
-    const response = await fetch('http://localhost:5000/years');
-    const data = await response.json();
-    setYears(data.map((datePart) => datePart.date_part || 'notdated'));
-  };
-
-  const fetchTags = async () => {
-    const response = await fetch('http://localhost:5000/tags');
-    const data = await response.json();
-    const uniqueTags = compact(uniq(flatten(data.map((d) => d.tags?.split(','))))).sort();
-    setTags(uniqueTags);
   };
 
   const handleRemoveItem = (item) => {
@@ -65,8 +61,6 @@ const Items = ({ query }) => {
   };
 
   useEffect(() => fetchItems(), [query]);
-  useEffect(() => fetchYears(), []);
-  useEffect(() => fetchTags(), []);
   useEffect(() => {
     if (query.length > 0) setFilter('all');
   }, [query]);

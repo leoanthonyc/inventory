@@ -95,16 +95,6 @@ app.get('/items/tag/:tag', async(req, res) => {
   }
 });
 
-
-app.get('/years', async(req, res) => {
-  try {
-    const items = await pool.query("SELECT DISTINCT date_part('year', added_at) FROM items;");
-    res.json(items.rows);
-  } catch(err) {
-    console.error(err.message);
-  }
-});
-
 app.put('/items/:id', async(req, res) => {
   try {
    const { id } = req.params;
@@ -130,15 +120,6 @@ app.delete('/items/:id', async(req, res) => {
     );
     res.json('Item was deleted!')
   } catch (err) {
-    console.error(err.message)
-  }
-})
-
-app.get('/tags', async(req, res) => {
-  try {
-    const tags = await pool.query("SELECT tags FROM items");
-    res.json(tags.rows);
-  } catch(err) {
     console.error(err.message)
   }
 })
