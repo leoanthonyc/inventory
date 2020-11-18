@@ -23,4 +23,9 @@ ul button {
 
 .filters span button {
   cursor: pointer;
+  border: 0;
+  border-radius: 10%;
+  background-color: whitesmoke;
+  color: grey;
+  padding: 5px;
 }

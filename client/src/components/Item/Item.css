@@ -17,7 +17,6 @@
 .item .react-tagsinput input {
   margin-left: 0.35rem;
   width: 2.5rem;
-  background-color: whitesmoke;
   border: none;
 }
 
@@ -41,7 +40,7 @@
 }
 
 .item .react-tagsinput-tag {
-  background-color: honeydew;
+  background-color: whitesmoke;
   border-radius: 2px;
   color: grey;
   display: inline-block;
