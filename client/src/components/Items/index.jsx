@@ -4,6 +4,8 @@ import { compact, flatten, uniq } from 'underscore';
 import Item from '../Item';
 import './Items.css';
 
+const SERVER_URL = 'http://localhost:5000';
+
 const Items = ({ query }) => {
   const [items, setItems] = useState([]);
   const [years, setYears] = useState([]);
@@ -12,8 +14,8 @@ const Items = ({ query }) => {
 
   const fetchItems = async () => {
     const sql = query.length > 0
-      ? `http://localhost:5000/items/${query}`
-      : 'http://localhost:5000/items';
+      ? `${SERVER_URL}/items/${query}`
+      : `${SERVER_URL}/items`;
     const response = await fetch(sql);
     const data = await response.json();
     setItems(data);
@@ -29,13 +31,13 @@ const Items = ({ query }) => {
   };
 
   const fetchItemsByYear = async (year) => {
-    const response = await fetch(`http://localhost:5000/items/year/${year}`);
+    const response = await fetch(`${SERVER_URL}/items/year/${year}`);
     const data = await response.json();
     setItems(data);
   };
 
   const fetchItemsByTag = async (tag) => {
-    const response = await fetch(`http://localhost:5000/items/tag/${tag}`);
+    const response = await fetch(`${SERVER_URL}/items/tag/${tag}`);
     const data = await response.json();
     setItems(data);
   };

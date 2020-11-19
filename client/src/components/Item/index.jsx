@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import TagsInput from 'react-tagsinput';
 import './Item.css';
 
+const SERVER_URL = 'http://localhost:5000';
+
 const Item = ({ item, handleRemoveItem }) => {
   const [name, setName] = useState(item.name);
   const [dateAdded, setDateAdded] = useState(
@@ -14,7 +16,7 @@ const Item = ({ item, handleRemoveItem }) => {
   const [tags, setTags] = useState(item?.tags?.length > 0 ? item.tags?.split(',') : []);
   const handleEditItem = async () => {
     const body = { name, dateAdded, tags };
-    await fetch(`http://localhost:5000/items/${item.id}`, {
+    await fetch(`${SERVER_URL}/items/${item.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -24,7 +26,7 @@ const Item = ({ item, handleRemoveItem }) => {
 
   const handleDeleteItem = async () => {
     if (window.confirm('Are you sure?')) {
-      const response = await fetch(`http://localhost:5000/items/${item.id}`, {
+      const response = await fetch(`${SERVER_URL}/items/${item.id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

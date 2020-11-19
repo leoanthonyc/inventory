@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './NewItem.css';
 
+const SERVER_URL = 'http://localhost:5000';
+
 const NewItem = () => {
   const [name, setName] = useState('');
   const [dateAdded, setDateAdded] = useState('');
@@ -11,7 +13,7 @@ const NewItem = () => {
       return;
     }
     const body = { name, dateAdded };
-    await fetch('http://localhost:5000/items', {
+    await fetch(`${SERVER_URL}/items`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
