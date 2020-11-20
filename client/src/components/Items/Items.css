@@ -29,3 +29,7 @@ ul button {
   color: grey;
   padding: 5px;
 }
+
+.filters span button:disabled {
+  background-color: wheat;
+}
