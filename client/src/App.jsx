@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Items from './components/Items';
-import NewItem from './components/NewItem';
-import SearchItem from './components/SearchItem';
-import './App.css';
+import React, { useState } from "react";
+import Items from "./components/Items";
+import NewItem from "./components/NewItem";
+import SearchItem from "./components/SearchItem";
+import "./App.css";
 
 const App = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   return (
     <div className="inventory">

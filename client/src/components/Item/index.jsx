@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import TagsInput from 'react-tagsinput';
-import './Item.css';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import TagsInput from "react-tagsinput";
+import "./Item.css";
 
-const SERVER_URL = 'http://localhost:5000';
+const SERVER_URL = "http://localhost:5000";
 
 const Item = ({ item, handleRemoveItem }) => {
   const [name, setName] = useState(item.name);
@@ -17,17 +17,17 @@ const Item = ({ item, handleRemoveItem }) => {
   const handleEditItem = async () => {
     const body = { name, dateAdded, tags };
     await fetch(`${SERVER_URL}/items/${item.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     }).catch((err) => console.error(err.message));
     setIsEditing(false);
   };
 
   const handleDeleteItem = async () => {
-    if (window.confirm('Are you sure?')) {
+    if (window.confirm("Are you sure?")) {
       const response = await fetch(`${SERVER_URL}/items/${item.id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       if (response.ok) {
         handleRemoveItem(item);
@@ -40,49 +40,43 @@ const Item = ({ item, handleRemoveItem }) => {
   return (
     <div className="item">
       {isEditing ? (
-        (
-          <>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleEditItem();
-              }}
-            />
-            <input
-              type="date"
-              value={dateAdded}
-              onChange={(e) => setDateAdded(e.target.value)}
-            />
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                handleEditItem();
-              }}
-            >
-              save
-            </button>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsEditing(false);
-              }}
-            >
-              cancel
-            </button>
-          </>
-        )
+        <>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleEditItem();
+            }}
+          />
+          <input
+            type="date"
+            value={dateAdded}
+            onChange={(e) => setDateAdded(e.target.value)}
+          />
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              handleEditItem();
+            }}
+          >
+            save
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsEditing(false);
+            }}
+          >
+            cancel
+          </button>
+        </>
       ) : (
         <>
-          <div className="item-name">
-            {name}
-          </div>
-          <div className="item-date">
-            {dateAdded}
-          </div>
+          <div className="item-name">{name}</div>
+          <div className="item-date">{dateAdded}</div>
           <button
             type="button"
             onClick={(e) => {
@@ -107,7 +101,7 @@ const Item = ({ item, handleRemoveItem }) => {
         className="react-tagsinput"
         value={tags}
         onChange={(inputTags) => setTags(inputTags)}
-        inputProps={{ placeholder: '+ tags' }}
+        inputProps={{ placeholder: "+ tags" }}
       />
     </div>
   );

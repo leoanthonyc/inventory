@@ -9,7 +9,7 @@ ul input {
   text-overflow: ellipsis;
 }
 
-ul input[type=text] {
+ul input[type="text"] {
   width: 12rem;
 }
 

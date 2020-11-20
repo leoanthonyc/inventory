@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './SearchItem.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./SearchItem.css";
 
 const SearchItem = ({ query, setQuery }) => (
   <div className="search-item">

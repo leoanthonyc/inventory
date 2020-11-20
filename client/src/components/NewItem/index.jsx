@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import './NewItem.css';
+import React, { useState } from "react";
+import "./NewItem.css";
 
-const SERVER_URL = 'http://localhost:5000';
+const SERVER_URL = "http://localhost:5000";
 
 const NewItem = () => {
-  const [name, setName] = useState('');
-  const [dateAdded, setDateAdded] = useState('');
+  const [name, setName] = useState("");
+  const [dateAdded, setDateAdded] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,10 +14,14 @@ const NewItem = () => {
     }
     const body = { name, dateAdded };
     await fetch(`${SERVER_URL}/items`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-    }).then(() => { window.location = '/'; }).catch((err) => console.error(err.message));
+    })
+      .then(() => {
+        window.location = "/";
+      })
+      .catch((err) => console.error(err.message));
   };
 
   return (
@@ -40,11 +44,7 @@ const NewItem = () => {
             onChange={(e) => setDateAdded(e.target.value)}
           />
         </label>
-        <button
-          disabled={name.length < 1}
-          className="save"
-          type="submit"
-        >
+        <button disabled={name.length < 1} className="save" type="submit">
           add
         </button>
       </form>

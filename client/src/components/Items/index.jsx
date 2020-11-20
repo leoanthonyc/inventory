@@ -1,32 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { compact, flatten, uniq } from 'underscore';
-import Item from '../Item';
-import './Items.css';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { compact, flatten, uniq } from "underscore";
+import Item from "../Item";
+import "./Items.css";
 
-const SERVER_URL = 'http://localhost:5000';
+const SERVER_URL = "http://localhost:5000";
 
 const Items = ({ query }) => {
   const [items, setItems] = useState([]);
   const [years, setYears] = useState([]);
   const [tags, setTags] = useState([]);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState("all");
 
   const fetchItems = async () => {
-    const sql = query.length > 0
-      ? `${SERVER_URL}/items/${query}`
-      : `${SERVER_URL}/items`;
+    const sql =
+      query.length > 0 ? `${SERVER_URL}/items/${query}` : `${SERVER_URL}/items`;
     const response = await fetch(sql);
     const data = await response.json();
     setItems(data);
-    const uniqueTags = compact(uniq(flatten(data.map((d) => d.tags?.split(','))))).sort();
+    const uniqueTags = compact(
+      uniq(flatten(data.map((d) => d.tags?.split(","))))
+    ).sort();
     setTags(uniqueTags);
-    const addedDates = compact(uniq(
-      data.map((d) => {
-        if (d.added_at) return new Date(d.added_at).getFullYear();
-        return null;
-      }),
-    ));
+    const addedDates = compact(
+      uniq(
+        data.map((d) => {
+          if (d.added_at) return new Date(d.added_at).getFullYear();
+          return null;
+        })
+      )
+    );
     setYears(addedDates);
   };
 
@@ -43,14 +46,12 @@ const Items = ({ query }) => {
   };
 
   const handleRemoveItem = (item) => {
-    setItems(
-      (prevItems) => prevItems.filter((i) => i.id !== item.id),
-    );
+    setItems((prevItems) => prevItems.filter((i) => i.id !== item.id));
   };
 
   const handleChangeYear = (year) => {
     setFilter(year);
-    if (year === 'all') {
+    if (year === "all") {
       fetchItems();
     } else {
       fetchItemsByYear(year);
@@ -64,7 +65,7 @@ const Items = ({ query }) => {
 
   useEffect(() => fetchItems(), [query]);
   useEffect(() => {
-    if (query.length > 0) setFilter('all');
+    if (query.length > 0) setFilter("all");
   }, [query]);
 
   return (
@@ -74,8 +75,8 @@ const Items = ({ query }) => {
           <span>
             <button
               type="button"
-              onClick={() => handleChangeYear('all')}
-              disabled={filter === 'all'}
+              onClick={() => handleChangeYear("all")}
+              disabled={filter === "all"}
             >
               All
             </button>
@@ -87,7 +88,7 @@ const Items = ({ query }) => {
                 type="button"
                 onClick={() => handleChangeYear(year)}
               >
-                {year === 'notdated' ? 'Not dated' : year}
+                {year === "notdated" ? "Not dated" : year}
               </button>
             </span>
           ))}
