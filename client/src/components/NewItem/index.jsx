@@ -6,6 +6,7 @@ const SERVER_URL = "http://localhost:5000";
 const NewItem = () => {
   const [name, setName] = useState("");
   const [dateAdded, setDateAdded] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,26 +28,38 @@ const NewItem = () => {
   return (
     <div className="new-item">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">
-          <input
-            name="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="new item"
-          />
-        </label>
-        <label htmlFor="dateadded">
-          <input
-            name="dateadded"
-            type="date"
-            value={dateAdded}
-            onChange={(e) => setDateAdded(e.target.value)}
-          />
-        </label>
-        <button disabled={name.length < 1} className="save" type="submit">
-          add
-        </button>
+        {isEditing ? (
+          <>
+            <label htmlFor="name">
+              Name:
+              <input
+                name="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
+            <label htmlFor="dateadded">
+              Date added:
+              <input
+                name="dateadded"
+                type="date"
+                value={dateAdded}
+                onChange={(e) => setDateAdded(e.target.value)}
+              />
+            </label>
+            <button disabled={name.length < 1} className="save" type="submit">
+              Save
+            </button>
+            <button type="submit" onClick={() => setIsEditing(false)}>
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button type="button" onClick={() => setIsEditing(true)}>
+            + New Item
+          </button>
+        )}
       </form>
     </div>
   );

@@ -1,9 +1,9 @@
 .new-item input {
-  margin-right: 0.2rem;
-  font-size: large;
+  margin: 0 0.5rem 0 0.2rem;
 }
 
-.new-item input[type="text"] {
+.new-item button {
+  margin: 0 0.2rem;
 }
 
 .new-item .save {
