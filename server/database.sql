@@ -27,3 +27,11 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 -- Add tags column
 ALTER TABLE items
 ADD COLUMN tags TEXT;
+
+-- Add tags column
+ALTER TABLE items
+ADD COLUMN tags TEXT;
+
+-- Add tags column
+ALTER TABLE items
+ADD COLUMN tags TEXT;
