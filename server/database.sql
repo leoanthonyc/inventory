@@ -3,6 +3,9 @@ CREATE DATABASE inventory;
 CREATE TABLE items(
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
+  tags TEXT,
+  status VARCHAR(255),
+  quantity INTEGER,
   added_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -23,15 +26,3 @@ CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON items
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
-
--- Add tags column
-ALTER TABLE items
-ADD COLUMN tags TEXT;
-
--- Add tags column
-ALTER TABLE items
-ADD COLUMN tags TEXT;
-
--- Add tags column
-ALTER TABLE items
-ADD COLUMN tags TEXT;
