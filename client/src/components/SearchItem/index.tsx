@@ -2,7 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./SearchItem.css";
 
-const SearchItem = ({ query, setQuery }) => (
+interface SearchItemProps {
+  query: string,
+  setQuery: Function,
+}
+
+const SearchItem = ({ query, setQuery }: SearchItemProps) => (
   <div className="search-item">
     Search:
     <input

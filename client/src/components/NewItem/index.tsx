@@ -8,7 +8,7 @@ const NewItem = () => {
   const [dateAdded, setDateAdded] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (name.length === 0) {
       return;
@@ -20,7 +20,7 @@ const NewItem = () => {
       body: JSON.stringify(body),
     })
       .then(() => {
-        window.location = "/";
+        window.location.href = "/";
       })
       .catch((err) => console.error(err.message));
   };

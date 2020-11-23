@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { compact, flatten, uniq } from "underscore";
 import Item from "../Item";
 import "./Items.css";
 
 const SERVER_URL = "http://localhost:5000";
 
-const Items = ({ query }) => {
-  const [items, setItems] = useState([]);
-  const [years, setYears] = useState([]);
-  const [tags, setTags] = useState([]);
+interface IItem {
+  id: number,
+  name: string,
+  tags?: string,
+  added_at?: string,
+}
+
+interface ItemsProps {
+  query: string
+}
+
+const Items = ({ query }: ItemsProps) => {
+  const [items, setItems] = useState<IItem[]>([]);
+  const [years, setYears] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [filter, setFilter] = useState("all");
 
   const fetchItems = async () => {
@@ -19,12 +29,12 @@ const Items = ({ query }) => {
     const data = await response.json();
     setItems(data);
     const uniqueTags = compact(
-      uniq(flatten(data.map((d) => d.tags?.split(","))))
+      uniq(flatten(data.map((d: IItem) => d.tags?.split(","))))
     ).sort();
     setTags(uniqueTags);
     const addedDates = compact(
       uniq(
-        data.map((d) => {
+        data.map((d: IItem) => {
           if (d.added_at) return new Date(d.added_at).getFullYear();
           return null;
         })
@@ -33,23 +43,23 @@ const Items = ({ query }) => {
     setYears(addedDates);
   };
 
-  const fetchItemsByYear = async (year) => {
+  const fetchItemsByYear = async (year: String) => {
     const response = await fetch(`${SERVER_URL}/items/year/${year}`);
     const data = await response.json();
     setItems(data);
   };
 
-  const fetchItemsByTag = async (tag) => {
+  const fetchItemsByTag = async (tag: string) => {
     const response = await fetch(`${SERVER_URL}/items/tag/${tag}`);
     const data = await response.json();
     setItems(data);
   };
 
-  const handleRemoveItem = (item) => {
+  const handleRemoveItem = (item: IItem) => {
     setItems((prevItems) => prevItems.filter((i) => i.id !== item.id));
   };
 
-  const handleChangeYear = (year) => {
+  const handleChangeYear = (year: string) => {
     setFilter(year);
     if (year === "all") {
       fetchItems();
@@ -58,12 +68,12 @@ const Items = ({ query }) => {
     }
   };
 
-  const handleChangeTag = (tag) => {
+  const handleChangeTag = (tag: string) => {
     setFilter(tag);
     fetchItemsByTag(tag);
   };
 
-  useEffect(() => fetchItems(), [query]);
+  useEffect(() => { fetchItems() }, [query]);
   useEffect(() => {
     if (query.length > 0) setFilter("all");
   }, [query]);
@@ -114,10 +124,6 @@ const Items = ({ query }) => {
       </ul>
     </div>
   );
-};
-
-Items.propTypes = {
-  query: PropTypes.string.isRequired,
 };
 
 export default Items;

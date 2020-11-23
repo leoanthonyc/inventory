@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import TagsInput from "react-tagsinput";
 import "./Item.css";
 
 const SERVER_URL = "http://localhost:5000";
 
-const Item = ({ item, handleRemoveItem }) => {
+interface IItem {
+  id: number,
+  name: string,
+  tags?: string,
+  added_at?: string,
+}
+
+interface ItemProps {
+  item: IItem,
+  handleRemoveItem: Function,
+};
+
+const Item = ({ item, handleRemoveItem }: ItemProps) => {
   const [name, setName] = useState(item.name);
   const [dateAdded, setDateAdded] = useState(
     item.added_at
@@ -13,15 +24,18 @@ const Item = ({ item, handleRemoveItem }) => {
       : '',
   );
   const [isEditing, setIsEditing] = useState(false);
-  const [tags, setTags] = useState(item?.tags?.length > 0 ? item.tags?.split(',') : []);
+  const [tags, setTags] = useState(item.tags && item.tags.length > 0 ? item.tags.split(',') : []);
   const handleEditItem = async () => {
     const body = { name, dateAdded, tags };
     await fetch(`${SERVER_URL}/items/${item.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-    }).catch((err) => console.error(err.message));
-    setIsEditing(false);
+    }).then(() => {
+      setIsEditing(false)
+      return true
+    })
+    .catch((err) => console.error(err.message));
   };
 
   const handleDeleteItem = async () => {
@@ -35,7 +49,9 @@ const Item = ({ item, handleRemoveItem }) => {
     }
   };
 
-  useEffect(() => handleEditItem(), [tags]);
+  useEffect(() => {
+    handleEditItem()
+  }, [tags]);
 
   return (
     <div className="item">
@@ -99,22 +115,12 @@ const Item = ({ item, handleRemoveItem }) => {
       )}
       <TagsInput
         className="react-tagsinput"
-        value={tags}
+        value={tags || []}
         onChange={(inputTags) => setTags(inputTags)}
         inputProps={{ placeholder: "+ tags" }}
       />
     </div>
   );
-};
-
-Item.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    tags: PropTypes.string,
-    added_at: PropTypes.string,
-  }).isRequired,
-  handleRemoveItem: PropTypes.func.isRequired,
 };
 
 export default Item;
