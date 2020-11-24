@@ -5,37 +5,40 @@ import "./Item.css";
 const SERVER_URL = "http://localhost:5000";
 
 interface IItem {
-  id: number,
-  name: string,
-  tags?: string,
-  added_at?: string,
+  id: number;
+  name: string;
+  quantity?: number;
+  tags?: string;
+  added_at?: string;
 }
 
 interface ItemProps {
-  item: IItem,
-  handleRemoveItem: Function,
-};
+  item: IItem;
+  handleRemoveItem: Function;
+}
 
 const Item = ({ item, handleRemoveItem }: ItemProps) => {
   const [name, setName] = useState(item.name);
   const [dateAdded, setDateAdded] = useState(
-    item.added_at
-      ? new Date(item.added_at).toISOString().split('T')[0]
-      : '',
+    item.added_at ? new Date(item.added_at).toISOString().split("T")[0] : ""
   );
+  const [tags, setTags] = useState(
+    item.tags && item.tags.length > 0 ? item.tags.split(",") : []
+  );
+  const [quantity, setQuantity] = useState(item.quantity);
   const [isEditing, setIsEditing] = useState(false);
-  const [tags, setTags] = useState(item.tags && item.tags.length > 0 ? item.tags.split(',') : []);
   const handleEditItem = async () => {
-    const body = { name, dateAdded, tags };
+    const body = { name, quantity, dateAdded, tags };
     await fetch(`${SERVER_URL}/items/${item.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-    }).then(() => {
-      setIsEditing(false)
-      return true
     })
-    .catch((err) => console.error(err.message));
+      .then(() => {
+        setIsEditing(false);
+        return true;
+      })
+      .catch((err) => console.error(err.message));
   };
 
   const handleDeleteItem = async () => {
@@ -50,7 +53,7 @@ const Item = ({ item, handleRemoveItem }: ItemProps) => {
   };
 
   useEffect(() => {
-    handleEditItem()
+    handleEditItem();
   }, [tags]);
 
   return (
@@ -64,6 +67,11 @@ const Item = ({ item, handleRemoveItem }: ItemProps) => {
             onKeyDown={(e) => {
               if (e.key === "Enter") handleEditItem();
             }}
+          />
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(+e.target.value)}
           />
           <input
             type="date"
@@ -91,6 +99,7 @@ const Item = ({ item, handleRemoveItem }: ItemProps) => {
         </>
       ) : (
         <>
+          {quantity && <div className="item-quantity">{quantity}</div>}
           <div className="item-name">{name}</div>
           <div className="item-date">{dateAdded}</div>
           <button
